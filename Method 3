@@ -1,0 +1,81 @@
+#include <bits/stdc++.h>
+using namespace std;
+int findLongestConseqSubseq (int arr[], int N)
+{
+    priority_queue<int, vector<int>, greater <int> >pq;  
+    for (int i = 0; i < N; i++)
+    {
+      // adding element from           
+      // array to PriorityQueue           
+      pq.push (arr[i]);
+
+    }
+  int prev = pq.top ();
+  pq.pop ();
+  // Taking a counter variable with value 1     
+  int c = 1;
+  // Storing value of max as 1    
+  // as there will always be   
+  // one element    
+  int max = 1;
+  while (!pq.empty ())
+    {
+      if (pq.top () - prev < 1)
+	{
+	  // Store the value of counter to 1
+	  // As new sequence may begin
+	  c = 1;
+	  // Update the previous position with the
+	  // current peek And remove it
+	  prev = pq.top ();
+	  pq.pop ();
+	}
+
+      // Check if the previous
+      // element and peek are same
+      else if (pq.top () - prev == 0)
+	{
+	  // Update the previous position with the
+	  // current peek And remove it
+	  prev = pq.top ();
+	  pq.pop ();
+	}
+
+      // If the difference
+      // between previous element and peek is 1
+      else
+	{
+
+	  // Update the counter
+	  // These are consecutive elements
+	  c++;
+
+	  // Update the previous position
+	  // with the current peek And remove it
+	  prev = pq.top ();
+	  pq.pop ();
+	}
+
+      // Check if current longest
+      // subsequence is the greatest
+      if (max < c)
+	{
+
+	  // Store the current subsequence count as
+	  // max
+	  max = c;
+	}
+    }
+  return max;
+}
+
+// Driver code
+int
+main ()
+{
+
+  int arr[] = { 1, 3, 2, 2 };
+  int n = sizeof (arr) / sizeof (arr[0]);
+  cout << "Length of the Longest contiguous subsequence is " << findLongestConseqSubseq (arr, n);
+  return 0;
+}
